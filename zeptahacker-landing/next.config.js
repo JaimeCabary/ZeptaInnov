@@ -9,6 +9,7 @@ const nextConfig = {
   // Optimize for Core Web Vitals
   compress: true,
   poweredByHeader: false,
+  output: 'export', // <--- add this line for static export
   headers: async () => [
     {
       source: '/(.*)',
