@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 15, 15, 15;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+  min-height: 100vh;
+}
+
+/* Enhanced Glassmorphic */
+.glassmorphic {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+}
+
+/* Metallic border - no glow */
+.neon-border {
+  position: relative;
+  background: linear-gradient(135deg, #000000, #1a1a1a);
+}
+
+.neon-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1.5px;
+  background: linear-gradient(
+    135deg,
+    #b87333,
+    #d4af37,
+    #ff8c00
+  );
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: xor;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #b87333, #d4af37);
+  border-radius: 4px;
+  border: 1px solid #111;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #996515, #ff8c00);
+}
+
+/* Metallic gradients */
+/* .bg-metallic-orange-gradient {
+  background: linear-gradient(
+    135deg,
+    #000000 0%,
+    #1a1200 30%,
+    #2a1a00 70%,
+    #000000 100%
+  );
+} */
+
+/* Background size utility for animated gradients */
+.bg-size-200 {
+  background-size: 200% 200%;
+}
+
+/* Responsive text shadows */
+.text-sharp {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .glassmorphic {
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+  }
+  
+  .neon-border::before {
+    padding: 1px;
+    border-radius: 12px;
+  }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
