@@ -194,3 +194,79 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* ===== CRITICAL PERFORMANCE OPTIMIZATIONS ===== */
+
+/* Force GPU acceleration for smooth animations */
+.smooth-transform {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Optimize animation performance */
+.performance-optimized {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* Reduced motion by default with smooth fallback */
+* {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* Hardware acceleration for animated elements */
+.animate-hardware {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Smooth scrolling with performance */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 2rem;
+}
+
+/* Optimize image rendering */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Performance-focused animation classes */
+.perf-animate {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Reduced motion alternative */
+@media (prefers-reduced-motion: reduce) {
+  .perf-animate {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ===== SPECIFIC COMPONENT OPTIMIZATIONS ===== */
+
+/* Optimize Vanta.js background */
+.vanta-container {
+  transform: translateZ(0);
+  isolation: isolate;
+}
+
+/* Optimize motion components */
+.motion-optimized {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Grid background optimization */
+.grid-bg-optimized {
+  background-attachment: fixed;
+  image-rendering: crisp-edges;
+}

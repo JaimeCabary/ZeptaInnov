@@ -51,6 +51,16 @@ module.exports = {
       backgroundImage: {
         'metallic-gradient': 'linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%)',
         'neon-gradient': 'linear-gradient(45deg, #00f3ff, #b967ff, #ff2df7)', // Added for Hero
+      },
+      // ✅ ADD THESE PERFORMANCE OPTIMIZATIONS:
+      transitionProperty: {
+        'transform-opacity': 'transform, opacity',
+      },
+      transitionDuration: {
+        '400': '400ms',
+      },
+      willChange: {
+        'transform-opacity': 'transform, opacity',
       }
     },
   },

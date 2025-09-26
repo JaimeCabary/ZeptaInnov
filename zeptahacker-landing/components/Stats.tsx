@@ -1,27 +1,28 @@
-// ===== Stats.tsx - Fixed with Real Icons =====
+// ===== Stats.tsx - Fixed CountUp =====
 'use client'
 
 import { motion, useInView } from 'framer-motion'
 import { useRef, useEffect, useState } from 'react'
 import { FaUsers, FaDatabase, FaServer, FaCode, FaMicrosoft, FaGoogle, FaAmazon, FaStripe, FaShopify, FaSpotify } from 'react-icons/fa'
 
-// Real CountUp component
+// Fixed CountUp component
 function CountUp({ 
   end, 
   suffix = '', 
   duration = 2,
-  decimals = 0 
+  decimals = 0,
+  isParentInView // Add this prop
 }: {
   end: number;
   suffix?: string;
   duration?: number;
   decimals?: number;
+  isParentInView: boolean; // Receive the parent's inView state
 }) {
   const [count, setCount] = useState(0)
-  const isInView = useInView(useRef(null), { once: true })
 
   useEffect(() => {
-    if (isInView) {
+    if (isParentInView) {
       let start = 0
       const increment = end / (duration * 60)
       const timer = setInterval(() => {
@@ -36,7 +37,7 @@ function CountUp({
 
       return () => clearInterval(timer)
     }
-  }, [isInView, end, duration])
+  }, [isParentInView, end, duration])
 
   return (
     <span>
@@ -102,14 +103,13 @@ export default function Stats() {
                 </div>
                 
                 <div className="text-3xl md:text-4xl font-bold text-white mb-2 font-mono">
-                  {isInView && (
-                    <CountUp
-                      end={stat.number}
-                      suffix={stat.suffix}
-                      duration={2}
-                      decimals={stat.decimals}
-                    />
-                  )}
+                  <CountUp
+                    end={stat.number}
+                    suffix={stat.suffix}
+                    duration={2}
+                    decimals={stat.decimals || 0}
+                    isParentInView={isInView} // Pass the parent's inView state
+                  />
                 </div>
                 <div className="text-gray-400 text-sm font-mono uppercase tracking-wide">
                   {stat.label}
