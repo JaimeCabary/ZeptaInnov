@@ -122,3 +122,75 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Add to your existing globals.css */
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  
+  .transform-gpu {
+    transform: translateZ(0);
+  }
+  
+  /* Smooth state changes */
+  * {
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+  }
+  
+  /* Enhanced scan animation */
+  @keyframes hologram-scan {
+    0% { 
+      transform: translateY(-100px) scaleY(0.5); 
+      opacity: 0; 
+    }
+    20% { 
+      opacity: 0.8; 
+      transform: translateY(0) scaleY(1);
+    }
+    80% { 
+      opacity: 0.8;
+      transform: translateY(100px) scaleY(1);
+    }
+    100% { 
+      transform: translateY(150px) scaleY(0.5); 
+      opacity: 0; 
+    }
+  }
+  
+  @keyframes quantum-pulse {
+    0%, 100% { 
+      opacity: 0.4;
+      transform: scale(1);
+    }
+    50% { 
+      opacity: 1;
+      transform: scale(1.1);
+    }
+  }
+  
+  .animate-hologram-scan {
+    animation: hologram-scan 4s ease-in-out infinite;
+  }
+  
+  .animate-quantum-pulse {
+    animation: quantum-pulse 3s ease-in-out infinite;
+  }
+}
+
+/* Improved reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -77,7 +77,7 @@ export default function UseCases() {
             </span>
           </h2>
           <p className="text-gray-400 text-lg font-mono max-w-3xl mx-auto">
-            // Real-world applications across enterprise infrastructure
+             Real-world applications across enterprise infrastructure
           </p>
         </motion.div>
 

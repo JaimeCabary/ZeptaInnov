@@ -75,9 +75,9 @@ export default function Footer() {
               <div className="flex gap-4 relative z-10">
                 {[
                   { icon: Github, href: "https://github.com/JaimeCabary", label: "GitHub" },
-                  { icon: Twitter, href: "#", label: "Twitter" },
+                  { icon: Twitter, href: "https://x.com/JaimeCabary", label: "Twitter" },
                   { icon: Linkedin, href: "#", label: "LinkedIn" },
-                  { icon: Mail, href: "#", label: "Email" }
+                  { icon: Mail, href: "shazzyazuwike@gmail.com", label: "Email" }
                 ].map(({ icon: Icon, href, label }) => (
                   <motion.a
                     key={label}
@@ -88,8 +88,8 @@ export default function Footer() {
                     whileTap={{ scale: 0.9 }}
                     className="group relative"
                   >
-                    <div className="bg-gradient-to-br from-yellow-500/20 to-amber-500/20 p-3 rounded-2xl border border-yellow-500/30 backdrop-blur-2xl">
-                      <Icon className="w-6 h-6 text-yellow-400 group-hover:text-amber-400 transition-colors" />
+                    <div className="bg-gradient-to-br from-yellow-300/20 to-amber-500/20 p-3 rounded-2xl border border-yellow-500/30 backdrop-blur-2xl group-hover:border-white group-hover:bg-white/10">
+                      <Icon className="w-6 h-6 text-amber-200 group-hover:text-white transition-colors" />
                     </div>
                     <motion.span
                       initial={{ opacity: 0, y: 10 }}
