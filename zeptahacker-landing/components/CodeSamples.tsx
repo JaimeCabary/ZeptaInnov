@@ -192,10 +192,10 @@ export default function CodeSamples() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center mb-16 md:mb-20"
         >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-light mb-6 tracking-tight">
-            <span className="bg-gradient-to-r from-amber-400 to-blue-500 bg-clip-text text-transparent">
-              Developer Interface
-            </span>
+          <h2 className="text-4xl md:text-6xl font-bold mb-4 font-mono">
+              <span className="bg-gradient-to-r from-amber-500 to-orange-100 bg-clip-text text-transparent">
+                &gt; Developer_Interface()
+              </span>
           </h2>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto font-light tracking-wide">
             Clean, intuitive API designed for modern development workflows

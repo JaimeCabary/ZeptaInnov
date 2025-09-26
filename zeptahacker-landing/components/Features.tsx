@@ -254,7 +254,7 @@ export default function Features() {
               </span>
             </h2>
             <p className="text-xl text-gray-200 max-w-3xl mx-auto font-mono">
-              // deploy_with_confidence(&quot;build&quot;, &quot;scale&quot;, &quot;innovate&quot;)
+              <code>// deploy_with_confidence(&quot;build&quot;, &quot;scale&quot;, &quot;innovate&quot;)</code>
             </p>
           </div>
         </motion.div>
