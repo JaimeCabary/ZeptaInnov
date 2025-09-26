@@ -1,4 +1,4 @@
-// ===== CodeSamples.tsx - Updated colors to match Hero =====
+// ===== CodeSamples.tsx - Light futuristic flip version =====
 'use client'
 
 import { motion } from 'framer-motion'
@@ -9,48 +9,54 @@ import { Copy, Check } from 'lucide-react'
 const codeSamples = [
   {
     language: 'TypeScript',
-    code: `// Instant deployment with Zeptahacker Innov
-import { Zepthacker } from 'zepthacker-sdk';
+    code: `// Quantum deployment protocol
+import { QuantumDeploy } from '@zeptahacker/core';
 
-const client = new Zepthacker({
-  apiKey: process.env.ZEPTHACKER_API_KEY,
+const quantum = new QuantumDeploy({
+  apiKey: process.env.ZEPTA_QUANTUM_KEY,
+  entropySource: 'quantum-random'
 });
 
-// Create a checkpoint
-const checkpoint = await client.checkpoints.create({
-  name: 'pre-feature-release',
-  metadata: { version: '1.2.0' }
+// Entanglement-based deployment
+const singularity = await quantum.singularities.create({
+  name: 'nebula-protocol-v2',
+  quantumState: 'superposition',
+  stability: 0.9997
 });
 
-// Deploy with confidence
-const deployment = await client.deployments.create({
-  checkpointId: checkpoint.id,
-  environment: 'production',
-  strategy: 'blue-green'
+// Multi-reality deployment strategy
+await quantum.realities.deploy({
+  singularityId: singularity.id,
+  dimensions: ['prime', 'shadow', 'quantum'],
+  coherenceCheck: true
 });`,
   },
   {
     language: 'Python',
-    code: `# AI-powered workflow automation
-from zepthacker import ZepthackerClient
+    code: `# Neural deployment intelligence
+from zepthacker.quantum import NeuralDeploy
 
-client = ZepthackerClient(api_key='your-api-key')
+ai_deploy = NeuralDeploy(quantum_key='your-quantum-key')
 
-# Smart rollback to previous checkpoint
-def handle_deployment_issue():
-    checkpoints = client.checkpoints.list()
-    last_stable = next(c for c in checkpoints if c.metadata['stable'])
-    
-    rollback = client.deployments.rollback(
-        checkpoint_id=last_stable.id,
-        reason='Performance regression detected'
+# Predictive anomaly detection
+def quantum_rollback_protocol():
+    timelines = ai_deploy.timelines.analyze()
+    optimal_reality = ai_deploy.ai.predict_optimal_state(
+        quantum_data=timelines.quantum_states,
+        entropy_levels=timelines.entropy_flux
     )
-    return rollback
+    
+    # Chronosync deployment
+    deployment = ai_deploy.chronosync.activate(
+        reality_matrix=optimal_reality.matrix,
+        temporal_stability= 0.9999
+    )
+    return deployment
 
-# AI suggests optimal deployment times
-optimal_time = client.ai.suggest_deployment_time(
-    historical_data=deployment_history,
-    constraints=business_hours
+# Quantum entanglement verification
+quantum_verified = ai_deploy.entanglement.verify(
+    particle_states=deployment.quantum_signature,
+    coherence_threshold=9.8
 )`,
   },
 ]
@@ -60,27 +66,143 @@ interface CodeSample {
   code: string;
 }
 
+// Better syntax highlighting with tokenization
+function SyntaxHighlighter({ code, language }: { code: string; language: string }) {
+  const tokenizeLine = (line: string) => {
+    const tokens: { type: string; content: string }[] = [];
+    let current = 0;
+    
+    // TypeScript token patterns
+    const tsPatterns = {
+      comment: /^\/\/.*/,
+      string: /^(['"`])(?:[^\\]|\\.)*?\1/,
+      keyword: /^\b(await|import|const|new|process|env|class|function|return|if|else|for|while)\b/,
+      number: /^\b\d+(\.\d+)?\b/,
+      function: /^\b\w+(?=\()/,
+      property: /^\b\w+(?=\.)/,
+      whitespace: /^\s+/,
+      identifier: /^\w+/
+    };
+
+    // Python token patterns  
+    const pyPatterns = {
+      comment: /^#.*/,
+      string: /^(['"])(?:[^\\]|\\.)*?\1/,
+      keyword: /^\b(def|from|import|return|True|False|class|if|else|for|while|in)\b/,
+      number: /^\b\d+(\.\d+)?\b/,
+      function: /^\b\w+(?=\()/,
+      whitespace: /^\s+/,
+      identifier: /^\w+/
+    };
+
+    const patterns = language === 'TypeScript' ? tsPatterns : pyPatterns;
+
+    while (current < line.length) {
+      // Try each pattern in order
+      let matched = false;
+      
+      for (const [type, pattern] of Object.entries(patterns)) {
+        const match = line.slice(current).match(pattern);
+        if (match) {
+          tokens.push({ type, content: match[0] });
+          current += match[0].length;
+          matched = true;
+          break;
+        }
+      }
+      
+      // If no pattern matched, take one character and continue
+      if (!matched) {
+        tokens.push({ type: 'unknown', content: line[current] });
+        current++;
+      }
+    }
+    
+    return tokens;
+  };
+
+  const highlightSyntax = (line: string, index: number) => {
+    const tokens = tokenizeLine(line);
+    
+    const getTokenClass = (type: string) => {
+      switch (type) {
+        case 'comment': return 'text-emerald-400/80';
+        case 'string': return 'text-amber-300';
+        case 'keyword': return 'text-purple-400 font-medium';
+        case 'number': return 'text-amber-300';
+        case 'function': return 'text-blue-300';
+        case 'property': return 'text-yellow-200';
+        case 'whitespace': return 'text-transparent'; // invisible but maintains spacing
+        default: return 'text-gray-100';
+      }
+    };
+
+    return (
+      <div key={index} className="flex hover:bg-white/10 transition-colors duration-200">
+        <span className="text-amber-400/60 select-none w-8 text-right pr-3 text-xs">
+          {index + 1}
+        </span>
+        <span className="flex-1">
+          {tokens.map((token, i) => (
+            <span key={i} className={getTokenClass(token.type)}>
+              {token.content}
+            </span>
+          ))}
+        </span>
+      </div>
+    );
+  };
+
+  return (
+    <div className="font-mono text-sm leading-relaxed">
+      {code.split('\n').map((line, index) => highlightSyntax(line, index))}
+    </div>
+  );
+}
 export default function CodeSamples() {
   return (
-    <section id="code" className="py-12 md:py-20 px-4 sm:px-6 relative">
-      <div className="max-w-7xl mx-auto">
+    <section id="code" className="py-16 md:py-24 px-4 sm:px-6 relative overflow-hidden">
+      {/* Subtle Grid Background */}
+      <div 
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(255, 255, 255, 0.8) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.8) 1px, transparent 1px)
+          `,
+          backgroundSize: '40px 40px',
+          backgroundPosition: 'center center'
+        }}
+      ></div>
+      
+      {/* Background Image Overlay */}
+      <div 
+        className="absolute inset-0 opacity-[0.02]"
+        style={{
+          backgroundImage: 'url("/huddy bg.jpg")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      ></div>
+      
+      <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-12 md:mb-16"
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-center mb-16 md:mb-20"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 px-2">
-            <span className="bg-gradient-to-r from-metallic-gold to-neon-orange bg-clip-text text-transparent">
-              Developer Experience
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-light mb-6 tracking-tight">
+            <span className="bg-gradient-to-r from-amber-400 to-blue-500 bg-clip-text text-transparent">
+              Developer Interface
             </span>
           </h2>
-          <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto px-4">
-            Clean, intuitive API designed for developers who care about code quality
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto font-light tracking-wide">
+            Clean, intuitive API designed for modern development workflows
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
           {codeSamples.map((sample, index) => (
             <CodeBlock key={sample.language} sample={sample} index={index} />
           ))}
@@ -96,46 +218,104 @@ function CodeBlock({ sample, index }: { sample: CodeSample; index: number }) {
   const [copied, setCopied] = useState(false)
 
   const copyToClipboard = async () => {
-    await navigator.clipboard.writeText(sample.code)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
+    try {
+      await navigator.clipboard.writeText(sample.code)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch (err) {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea')
+      textArea.value = sample.code
+      document.body.appendChild(textArea)
+      textArea.select()
+      document.execCommand('copy')
+      document.body.removeChild(textArea)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    }
+  }
+
+  // Different flip directions for variety
+  const flipVariants = {
+    hidden: { 
+      opacity: 0, 
+      rotateY: index % 2 === 0 ? -15 : 15,
+      rotateX: 10,
+      scale: 0.9,
+      y: 50 
+    },
+    visible: { 
+      opacity: 1, 
+      rotateY: 0,
+      rotateX: 0,
+      scale: 1,
+      y: 0,
+      transition: { 
+        duration: 0.8, 
+        delay: index * 0.1,
+        ease: "easeOut"
+      }
+    }
   }
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-      transition={{ duration: 0.8, delay: index * 0.2 }}
-      className="relative group"
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={flipVariants}
+      className="relative group perspective-1000"
+      style={{ perspective: '1000px' }}
     >
-      <div className="absolute inset-0 bg-gradient-to-r from-metallic-gold/20 to-neon-orange/20 rounded-lg blur-lg group-hover:blur-xl transition-all duration-300"></div>
-      
-      <div className="relative bg-gray-900/90 backdrop-blur-sm rounded-lg border border-metallic-gold/30 overflow-hidden">
-        <div className="flex justify-between items-center px-3 sm:px-4 py-2 sm:py-3 bg-gray-800/50 border-b border-metallic-gold/20">
-          <span className="text-metallic-gold font-mono font-semibold text-sm sm:text-base">
-            {sample.language}
-          </span>
+      <div className="relative bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-sm rounded-xl border border-gray-700/50 overflow-hidden hover:border-amber-400/30 transition-all duration-500 group-hover:transform group-hover:scale-[1.02]">
+        
+        {/* Header */}
+        <div className="flex justify-between items-center px-6 py-4 bg-amber-200/10 border-b border-gray-700/50">
+          <div className="flex items-center space-x-3">
+            <div className="flex space-x-1">
+              <div className="w-3 h-3 rounded-full bg-red-400"></div>
+              <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+              <div className="w-3 h-3 rounded-full bg-green-400"></div>
+            </div>
+            <span className="text-amber-300 font-mono font-medium text-sm tracking-wide">
+              {sample.language}
+            </span>
+          </div>
+          
           <button
             onClick={copyToClipboard}
-            className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 rounded-md bg-metallic-gold/10 border border-metallic-gold/30 hover:bg-metallic-gold/20 transition-colors text-xs sm:text-sm"
+            className={`flex items-center space-x-2 px-4 py-2 rounded-lg border font-mono text-xs transition-all duration-300 ${
+              copied 
+                ? 'bg-green-500/10 border-green-400/50 text-green-300' 
+                : 'bg-gray-700/30 border-gray-400/50 text-gray-300 hover:bg-amber-500/10 hover:border-amber-400/30 hover:text-amber-300'
+            }`}
           >
             {copied ? (
-              <Check className="w-3 h-3 sm:w-4 sm:h-4" />
+              <>
+                <Check className="w-3 h-3" />
+                <span>COPIED</span>
+              </>
             ) : (
-              <Copy className="w-3 h-3 sm:w-4 sm:h-4" />
+              <>
+                <Copy className="w-3 h-3" />
+                <span>COPY</span>
+              </>
             )}
-            <span className="hidden sm:inline">{copied ? 'Copied!' : 'Copy'}</span>
-            <span className="sm:hidden">{copied ? '✓' : 'Copy'}</span>
           </button>
         </div>
         
-        <div className="p-3 sm:p-4 overflow-x-auto">
-          <pre className="text-xs sm:text-sm leading-relaxed overflow-x-auto">
-            <code className="language-typescript block min-w-max">
-              {sample.code}
-            </code>
-          </pre>
+        {/* Code Content */}
+        <div className="p-6 bg-gradient-to-br from-black/70 to-black/90">
+          <div className="overflow-x-auto">
+            <SyntaxHighlighter code={sample.code} language={sample.language} />
+          </div>
+        </div>
+        
+        {/* Subtle footer */}
+        <div className="px-6 py-3 bg-amber-200/20 border-t border-gray-700/30">
+          <div className="text-xs text-gray-200 font-mono tracking-wide">
+            &gt; Ready for quantum deployment
+          </div>
         </div>
       </div>
     </motion.div>
