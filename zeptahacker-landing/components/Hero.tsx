@@ -8,13 +8,28 @@ export default function Hero() {
   const [vantaEffect, setVantaEffect] = useState<any>(null)
   const vantaRef = useRef<HTMLDivElement>(null)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [windowHeight, setWindowHeight] = useState(800) // Default height for SSR
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY })
     }
+    
+    // Set the actual window height once component mounts
+    setWindowHeight(window.innerHeight)
+    
+    // Handle window resize
+    const handleResize = () => {
+      setWindowHeight(window.innerHeight)
+    }
+
     window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
+    window.addEventListener('resize', handleResize)
+    
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('resize', handleResize)
+    }
   }, [])
 
   useEffect(() => {
@@ -121,7 +136,7 @@ export default function Hero() {
           <motion.div
             key={i}
             animate={{
-              y: [-100, window.innerHeight + 100],
+              y: [-100, windowHeight + 100],
               opacity: [0, 1, 0]
             }}
             transition={{
@@ -265,7 +280,6 @@ export default function Hero() {
               transition={{ duration: 1.2, delay: 0.6 }}
               className="bg-black/40 backdrop-blur-sm border border-yellow-500/30 p-6 md:p-8 rounded-3xl mb-8 shadow-2xl max-w-4xl mx-auto relative overflow-hidden"
             >
-              Shalom
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
